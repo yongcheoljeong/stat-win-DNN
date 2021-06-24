@@ -1,0 +1,5 @@
+## ignore file
+*.csv
+mysql_auth.py
+
+## ignore folder
