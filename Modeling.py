@@ -102,7 +102,7 @@ class ModelDNN:
         # data
         X = self.X 
         y = self.y
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, shuffle=False)
 
         # y_train = tf.keras.utils.to_categorical(y_train, len(np.unique(y)))
         # y_test = tf.keras.utils.to_categorical(y_test, len(np.unique(y)))
@@ -129,7 +129,7 @@ class ModelDNN:
         model.summary()
         return model 
     
-    def train_model(self, num_epoch=1000, batch_size=512, patience=100):
+    def train_model(self, num_epoch=1000, batch_size=512, patience=100, verbose=1):
         # model
         model = self.create_model()
         model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
@@ -137,7 +137,7 @@ class ModelDNN:
         
         # Fitting
         early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', mode='min', patience=patience)
-        history = model.fit(self.X_train, self.y_train, epochs=num_epoch, batch_size=batch_size, validation_data=(self.X_test, self.y_test), verbose=1, callbacks=[early_stopping])        
+        history = model.fit(self.X_train, self.y_train, epochs=num_epoch, batch_size=batch_size, validation_data=(self.X_test, self.y_test), verbose=verbose, callbacks=[early_stopping])        
         self.model = model
 
         # Loss plotting
