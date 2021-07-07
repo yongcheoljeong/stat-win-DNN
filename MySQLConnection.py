@@ -66,7 +66,7 @@ class MySQLConnection():
                 sql = f"""
                 SELECT * from `{tablename}`
                 """
-                sql_union = sql_union + sql + ' UNION '
+                sql_union = sql_union + sql + ' UNION ALL '
         
         table_df = self.read_table_with_sql(sql_union)
         return table_df
