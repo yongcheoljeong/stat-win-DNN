@@ -63,7 +63,7 @@ class ModelLSTM:
         model.summary()
         return model 
 
-    def train_model(self, num_epoch=1000, batch_size=512, patience=100):
+    def train_model(self, num_epoch=1000, batch_size=512, patience=100, verbose=1):
         # model
         model = self.create_model()
         model.compile(optimizer='adam', loss='mse')
@@ -71,7 +71,7 @@ class ModelLSTM:
         
         # Fitting
         early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', mode='min', patience=patience)
-        history = model.fit(self.X_train, self.y_train, epochs=num_epoch, batch_size=batch_size, validation_data=(self.X_test, self.y_test), verbose=1, callbacks=[early_stopping])
+        history = model.fit(self.X_train, self.y_train, epochs=num_epoch, batch_size=batch_size, validation_data=(self.X_test, self.y_test), verbose=verbose, callbacks=[early_stopping])
         self.model = model
         # Loss plotting
         plt.plot(history.history['loss'], label='train')
